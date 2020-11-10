@@ -61,68 +61,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="tree">
-                <ul style="padding-left:0px;" class="list-group">
-                    <li class="list-group-item tree-closed" >
-                        <a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a>
-                    </li>
-                    <li class="list-group-item">
-                        <span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span>
-                        <ul style="margin-top:10px;">
-                            <li style="height:30px;">
-                                <a href="${APP_PATH}/user/index.htm" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="role.html"><i class="glyphicon glyphicon-king"></i> 角色维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 许可维护</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed">
-                        <span><i class="glyphicon glyphicon-ok"></i> 业务审核 <span class="badge" style="float:right">3</span></span>
-                        <ul style="margin-top:10px;display:none;">
-                            <li style="height:30px;">
-                                <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> 实名认证审核</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="auth_adv.html"><i class="glyphicon glyphicon-check"></i> 广告审核</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="auth_project.html"><i class="glyphicon glyphicon-check"></i> 项目审核</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed">
-                        <span><i class="glyphicon glyphicon-th-large"></i> 业务管理 <span class="badge" style="float:right">7</span></span>
-                        <ul style="margin-top:10px;display:none;">
-                            <li style="height:30px;">
-                                <a href="cert.html"><i class="glyphicon glyphicon-picture"></i> 资质维护</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="type.html"><i class="glyphicon glyphicon-equalizer"></i> 分类管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="process.html"><i class="glyphicon glyphicon-random"></i> 流程管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="advertisement.html"><i class="glyphicon glyphicon-hdd"></i> 广告管理</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="message.html"><i class="glyphicon glyphicon-comment"></i> 消息模板</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="project_type.html"><i class="glyphicon glyphicon-list"></i> 项目分类</a>
-                            </li>
-                            <li style="height:30px;">
-                                <a href="tag.html"><i class="glyphicon glyphicon-tags"></i> 项目标签</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item tree-closed" >
-                        <a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a>
-                    </li>
-                </ul>
+<%--                <jsp:include page="../common/menu.jsp"></jsp:include>--%>
+                <jsp:include page="/WEB-INF/jsp/common/menu.jsp"></jsp:include>
             </div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -140,8 +80,8 @@
                         </div>
                         <button type="button" id="searchBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;" onclick="deleteUserBatch()" ><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/user/add.htm'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -149,7 +89,7 @@
                             <thead>
                             <tr >
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input type="checkbox" id="qx"></th>
                                 <th>账号</th>
                                 <th>名称</th>
                                 <th>邮箱地址</th>
@@ -201,14 +141,26 @@
         $("#searchBtn").click(function () {
             showPage();
         })
+
+        //单选和全选
+        $("#qx").click(function () {
+            $("input[name='xz']").prop("checked",this.checked);
+            //$("tbody tr td input [type=checkbox]").prop("checked",this.checked);
+        })
+
+        $("#activitybody").on("click",$("input[name='xz']"),function () {
+            $("#qx").prop("checked",$("input[name='xz']").length==$("input[name='xz']:checked").length);
+        })
+
+        showMenu();
     });
+
     $("tbody .btn-success").click(function(){
         window.location.href = "assignRole.html";
     });
     $("tbody .btn-primary").click(function(){
         window.location.href = "edit.html";
     });
-
 
     function showPage(pageno,pagesize) {
         var loadingIndex=-1;
@@ -237,14 +189,14 @@
                 $.each(userlist,function (i,n) {
                     param+='<tr>';
                     param+='<td>'+i+'</td>';
-                    param+='<td><input type="checkbox"></td>';
+                    param+='<td><input type="checkbox" name="xz" value="'+n.id+'"></td>';
                     param+='<td>'+n.loginacct+'</td>';
                     param+='<td>'+n.username+'</td>';
                     param+='<td>'+n.email+'</td>';
                     param+='<td>';
                     param+='<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-                    param+='<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-                    param+='<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                    param+='<button type="button" class="btn btn-primary btn-xs" onclick="doDelete('+n.id+')"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                    param+='<button type="button" class="btn btn-danger btn-xs" onclick="deleteUser('+n.id+')"><i class=" glyphicon glyphicon-remove"></i></button>';
                     param+='</td>';
                     param+='</tr>';
                 })
@@ -279,6 +231,85 @@
                 layer.msg("查询失败", {time:1000, icon:5, shift:6});
             }
         })
+    }
+
+    //删除用户列表（单条删除）
+    function deleteUser(id) {
+        var loadingIndex=-1;
+        $.ajax({
+            type:"POST",
+            url:"${APP_PATH}/user/doDelete.do",
+            data:{
+                "id":id
+            },
+            beforeSend:function () {
+                loadingIndex = layer.msg("删除中", {icon: 16});
+                return true;
+            },
+            success:function (result) {
+                layer.close(loadingIndex);
+                if(result.success){
+                    //刷新页面
+                    showPage(1,10);
+                }else{
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+            },
+            error:function (result) {
+                layer.msg(result.message, {time:1000, icon:5, shift:6});
+            }
+        })
+    }
+
+    //删除用户列表（多条删除）
+    function deleteUserBatch() {
+        var loadingIndex=-1;
+        var $xz=$("input[name=xz]:checked");
+        //判断是否选择了一条或以上数据
+        if($xz.length==0){
+            layer.msg("请选择要删除的用户数据", {time:1000, icon:5, shift:6});
+            return false;
+        }
+        var dataObj={};
+        $.each($xz,function (i,n) {
+            dataObj["userlist["+i+"].id"]=n.value;
+        })
+
+        layer.confirm("确定要删除吗",  {icon: 3, title:'提示'}, function(cindex){
+            layer.close(cindex);
+            $.ajax({
+                type:"POST",
+                url:"${APP_PATH}/user/doDeleteBatch.do",
+                data:dataObj,
+                beforeSend:function () {
+                    loadingIndex = layer.msg("删除中", {icon: 16});
+                    return true;
+                },
+                success:function (result) {
+                    layer.close(loadingIndex);
+                    if(result.success){
+                        //刷新页面
+                        showPage(1,10);
+                    }else{
+                        layer.msg(result.message, {time:1000, icon:5, shift:6});
+                    }
+                },
+                error:function (result) {
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+            })
+
+        });
+    }
+
+    //同步请求，到修改页面，铺页面
+    function doDelete(id) {
+        window.location.href="${APP_PATH}/user/toEdit.do?id="+id;
+    }
+
+    function showMenu() {
+        //alert("${pageContext.request.requestURI}");/Atcrowdfunding/WEB-INF/jsp/user/index.jsp
+
     }
 </script>
 </body>

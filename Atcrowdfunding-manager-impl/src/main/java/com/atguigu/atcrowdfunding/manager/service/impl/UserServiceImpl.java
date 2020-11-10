@@ -3,6 +3,7 @@ package com.atguigu.atcrowdfunding.manager.service.impl;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.manager.dao.UserMapper;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
+import com.atguigu.atcrowdfunding.util.DataList;
 import com.atguigu.atcrowdfunding.util.Page;
 import com.atguigu.atcrowdfunding.util.exception.LoginException;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,51 @@ public class UserServiceImpl implements UserService{
             throw new LoginException("登录失败");
         }
         return user;
+    }
+
+    @Override
+    public int saveUser(User user) {
+        int count = userMapper.insert(user);
+        if(count!=1){
+            throw new RuntimeException("添加失败");
+        }
+        return count;
+    }
+
+    @Override
+    public int deleteUser(Integer id) {
+        int count= userMapper.deleteByPrimaryKey(id);
+        if(count!=1){
+            throw new RuntimeException("删除失败");
+        }
+        return count;
+    }
+
+    @Override
+    public int deleteUserBatch(DataList dataList) {
+        int count=userMapper.deleteUserBatch(dataList.getUserlist());
+        if(count!=dataList.getUserlist().size()){
+            throw new RuntimeException("删除失败");
+        }
+        return count;
+    }
+
+    @Override
+    public User queryUserById(Integer id) {
+        User user = userMapper.queryUserById(id);
+        if(user==null){
+            throw  new RuntimeException("查询失败");
+        }
+        return user;
+    }
+
+    @Override
+    public int editUser(User user) {
+        int count = userMapper.updateByPrimaryKey(user);
+        if(count!=1){
+            throw new RuntimeException("修改");
+        }
+        return count;
     }
 
     @Override

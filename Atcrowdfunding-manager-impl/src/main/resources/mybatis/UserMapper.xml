@@ -101,11 +101,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.atguigu.atcrowdfunding.bean.User">
-    insert into t_user (id, loginacct, userpswd, 
-      username, email, createtime
-      )
-    values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR}, 
-      #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
+    insert into t_user (loginacct,username,userpswd,email, createtime)
+    values (#{loginacct,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},#{userpswd,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=CHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.atguigu.atcrowdfunding.bean.User">
@@ -219,10 +216,8 @@
   <update id="updateByPrimaryKey" parameterType="com.atguigu.atcrowdfunding.bean.User">
     update t_user
     set loginacct = #{loginacct,jdbcType=VARCHAR},
-      userpswd = #{userpswd,jdbcType=CHAR},
       username = #{username,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=CHAR}
+      email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -234,6 +229,7 @@
   <select id="queryUserList" resultMap="BaseResultMap">
     select id,loginacct,username,userpswd,email,createtime from t_user
     where username like '%' #{searchCondition} '%'
+    order by createtime desc
     limit #{startIndex},#{pagesize}
   </select>
 
@@ -242,5 +238,16 @@
     <if test="searchCondition!=null and searchCondition!=''">
         where username like '%' #{searchCondition} '%'
     </if>
+  </select>
+
+  <delete id="deleteUserBatch">
+    delete from t_user where id in
+    <foreach collection="list" separator="," open="(" close=")" item="user">
+      #{user.id}
+    </foreach>
+  </delete>
+
+  <select id="queryUserById" resultMap="BaseResultMap">
+    select id,loginacct,username,userpswd,email,createtime from t_user where id=#{id}
   </select>
 </mapper>
