@@ -250,4 +250,25 @@
   <select id="queryUserById" resultMap="BaseResultMap">
     select id,loginacct,username,userpswd,email,createtime from t_user where id=#{id}
   </select>
+
+  <select id="queryAllRole" resultType="Role">
+    select * from t_role
+  </select>
+
+  <select id="queryRoleId" resultType="int">
+    select roleid from t_user_role where userid=#{id}
+  </select>
+
+<!--如果有两个参数，就不可以用list或array，会找不到-->
+  <insert id="saveUserRoleRelationship">
+    <foreach collection="ids" item="roleid" separator=";">
+        insert into t_user_role (userid,roleid) values(#{userid},#{roleid})
+    </foreach>
+  </insert>
+  <delete id="deleteUserRoleRelationship">
+        delete from t_user_role where userid=#{userid} and roleid in
+        <foreach collection="data.ids" item="roleid" separator="," open="(" close=")">
+          #{roleid}
+        </foreach>
+  </delete>
 </mapper>

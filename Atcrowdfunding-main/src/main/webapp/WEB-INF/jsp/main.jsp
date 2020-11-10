@@ -109,7 +109,31 @@
                 }
             }
         });
+        showMenu();
     });
+
+
+    function showMenu() {
+        //因为是内部跳转，所以拿到的地址是内部地址。
+        //alert("${pageContext.request.requestURI}");/Atcrowdfunding/WEB-INF/jsp/user/index.jsp
+
+        //获取当前页面的地址
+        var addr = window.location.href;//http://127.0.0.1:8080/Atcrowdfunding/user/index.htm
+        //获取当前页面的ip
+        var ip = window.location.host;//127.0.0.1:8080
+        var contextPath = "${APP_PATH}";
+        //当前页面的URI
+        var URI = addr.substring(ip.length+contextPath.length+7);//  /user/index.htm
+
+        var a = $(".list-group a[href*='"+URI+"']");
+        //将对应的a标签赋上颜色
+        a.css("color","red");
+        //控制关闭
+        a.parent().parent().parent().removeClass("tree-closed");
+        a.parent().parent().show();
+
+    }
+
 </script>
 </body>
 </html>

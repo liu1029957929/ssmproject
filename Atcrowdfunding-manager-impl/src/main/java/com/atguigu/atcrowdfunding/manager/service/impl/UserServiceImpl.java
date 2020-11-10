@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.manager.service.impl;
 
+import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.manager.dao.UserMapper;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
@@ -69,6 +70,28 @@ public class UserServiceImpl implements UserService{
             throw new RuntimeException("修改");
         }
         return count;
+    }
+
+    @Override
+    public List<Role> queryAllRole() {
+        List<Role> roleList = userMapper.queryAllRole();
+        return roleList;
+    }
+
+    @Override
+    public List<Integer> queryRoleId(Integer id) {
+        List<Integer> roleIdList = userMapper.queryRoleId(id);
+        return roleIdList;
+    }
+
+    @Override
+    public void saveUserRoleRelationship(Integer userid, DataList data) {
+        userMapper.saveUserRoleRelationship(userid, data.getIds());
+    }
+
+    @Override
+    public void deleteUserRoleRelationship(Integer userid, DataList data) {
+            userMapper.deleteUserRoleRelationship(userid,data);
     }
 
     @Override

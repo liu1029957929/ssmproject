@@ -32,17 +32,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li style="padding-top:8px;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> ${user.username} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                            <li class="divider"></li>
-                            <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                        </ul>
-                    </div>
+                    <jsp:include page="/WEB-INF/jsp/common/top.jsp"></jsp:include>
                 </li>
                 <li style="margin-left:10px;padding-top:8px;">
                     <button type="button" class="btn btn-default btn-danger">
@@ -137,6 +127,8 @@
         //展示列表
         showPage(1,10);
 
+        showMenu();
+
         //为条件查询绑定事件
         $("#searchBtn").click(function () {
             showPage();
@@ -145,14 +137,13 @@
         //单选和全选
         $("#qx").click(function () {
             $("input[name='xz']").prop("checked",this.checked);
-            //$("tbody tr td input [type=checkbox]").prop("checked",this.checked);
+            //$("tbody tr td input[type=checkbox]").prop("checked",this.checked);
         })
 
         $("#activitybody").on("click",$("input[name='xz']"),function () {
             $("#qx").prop("checked",$("input[name='xz']").length==$("input[name='xz']:checked").length);
         })
 
-        showMenu();
     });
 
     $("tbody .btn-success").click(function(){
@@ -161,6 +152,28 @@
     $("tbody .btn-primary").click(function(){
         window.location.href = "edit.html";
     });
+
+    function showMenu() {
+        //因为是内部跳转，所以拿到的地址是内部地址。
+        //alert("${pageContext.request.requestURI}");/Atcrowdfunding/WEB-INF/jsp/user/index.jsp
+
+        //获取当前页面的地址
+        var addr = window.location.href;//http://127.0.0.1:8080/Atcrowdfunding/user/index.htm
+        //获取当前页面的ip
+        var ip = window.location.host;//127.0.0.1:8080
+        var contextPath = "${APP_PATH}";
+        //当前页面的URI
+        var URI = addr.substring(ip.length+contextPath.length+7);//  /user/index.htm
+
+        var a = $(".list-group a[href*='"+URI+"']");
+        //将对应的a标签赋上颜色
+        a.css("color","red");
+        //控制关闭
+        a.parent().parent().parent().removeClass("tree-closed");
+        a.parent().parent().show();
+
+    }
+
 
     function showPage(pageno,pagesize) {
         var loadingIndex=-1;
@@ -194,8 +207,8 @@
                     param+='<td>'+n.username+'</td>';
                     param+='<td>'+n.email+'</td>';
                     param+='<td>';
-                    param+='<button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-                    param+='<button type="button" class="btn btn-primary btn-xs" onclick="doDelete('+n.id+')"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                    param+='<button type="button" class="btn btn-success btn-xs" onclick="toAssignRole('+n.id+')"><i class=" glyphicon glyphicon-check"></i></button>';
+                    param+='<button type="button" class="btn btn-primary btn-xs" onclick="toDelete('+n.id+')"><i class=" glyphicon glyphicon-pencil"></i></button>';
                     param+='<button type="button" class="btn btn-danger btn-xs" onclick="deleteUser('+n.id+')"><i class=" glyphicon glyphicon-remove"></i></button>';
                     param+='</td>';
                     param+='</tr>';
@@ -261,6 +274,7 @@
         })
     }
 
+
     //删除用户列表（多条删除）
     function deleteUserBatch() {
         var loadingIndex=-1;
@@ -272,8 +286,10 @@
         }
         var dataObj={};
         $.each($xz,function (i,n) {
+            //这里的datalist要和controller中接收参数里面的变量一样
             dataObj["userlist["+i+"].id"]=n.value;
         })
+
 
         layer.confirm("确定要删除吗",  {icon: 3, title:'提示'}, function(cindex){
             layer.close(cindex);
@@ -303,14 +319,14 @@
     }
 
     //同步请求，到修改页面，铺页面
-    function doDelete(id) {
-        window.location.href="${APP_PATH}/user/toEdit.do?id="+id;
+    function toDelete(id) {
+        window.location.href="${APP_PATH}/user/toEdit.htm?id="+id;
     }
 
-    function showMenu() {
-        //alert("${pageContext.request.requestURI}");/Atcrowdfunding/WEB-INF/jsp/user/index.jsp
-
+    function toAssignRole(id) {
+        window.location.href="${APP_PATH}/user/assignrole.htm?id="+id;
     }
+
 </script>
 </body>
 </html>

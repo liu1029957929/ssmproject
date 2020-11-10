@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.manager.dao;
 
+import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.bean.UserExample;
 import com.atguigu.atcrowdfunding.util.DataList;
@@ -44,4 +45,12 @@ public interface UserMapper {
     int deleteUserBatch(List userList);
 
     User queryUserById(Integer id);
+
+    List<Role> queryAllRole();
+
+    List<Integer> queryRoleId(Integer id);
+s
+    int saveUserRoleRelationship(@Param("userid") Integer userid,@Param("ids") List<Integer> id);
+
+    int deleteUserRoleRelationship(@Param("userid") Integer userid,@Param("data") DataList data);
 }

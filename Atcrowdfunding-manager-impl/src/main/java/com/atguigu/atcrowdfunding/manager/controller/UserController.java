@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.manager.controller;
 
+import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
 import com.atguigu.atcrowdfunding.util.*;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,6 +32,64 @@ public class UserController {
     @RequestMapping("/add")
     public String add() {
         return "user/add";
+    }
+
+    //添加分配角色
+    @ResponseBody
+    @RequestMapping("/doAssignRole")
+    public Object doAssignRole(Integer userid, DataList data) {
+        AjaxResult result = new AjaxResult();
+        try {
+            userService.saveUserRoleRelationship(userid,data);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("分配角色失败");
+        }
+        return result;
+    }
+
+    //删除分配角色
+    @ResponseBody
+    @RequestMapping("/doUnAssignRole")
+    public Object doUnAssignRole(Integer userid, DataList data) {
+        AjaxResult result = new AjaxResult();
+        try {
+            userService.deleteUserRoleRelationship(userid,data);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("取消分配角色失败");
+        }
+        return result;
+    }
+
+    //查询分配角色列表
+    @RequestMapping("/assignrole")
+    public String assignrole(Integer id,HttpServletRequest request) {
+        //查询总的role列表
+        List<Role> roleList= userService.queryAllRole();
+        //查询useid对应的roleid
+        List<Integer> roleIdList = userService.queryRoleId(id);
+
+        List<Role> rightRoleList = new ArrayList<>();
+        List<Role> leftRoleList = new ArrayList<>();
+
+        for(Role role:roleList){
+            if(roleIdList.contains(role.getId())){
+                //划分到已经分配角色列表
+                rightRoleList.add(role);
+            }else{
+                //划分到未分配角色列表
+                leftRoleList.add(role);
+            }
+        }
+        //添加到request域
+        request.setAttribute("rightRoleList",rightRoleList);
+        request.setAttribute("leftRoleList",leftRoleList);
+        return "user/assignrole";
     }
 
     //条件查询
@@ -130,5 +191,6 @@ public class UserController {
         }
         return result;
     }
+
 }
 
