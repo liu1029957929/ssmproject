@@ -49,7 +49,7 @@ public interface UserMapper {
     List<Role> queryAllRole();
 
     List<Integer> queryRoleId(Integer id);
-s
+
     int saveUserRoleRelationship(@Param("userid") Integer userid,@Param("ids") List<Integer> id);
 
     int deleteUserRoleRelationship(@Param("userid") Integer userid,@Param("data") DataList data);
