@@ -219,4 +219,11 @@
   <select id="getAllPermission" resultType="Permission">
     select id,pid,name,icon,url from t_permission
   </select>
+
+
+  <select id="getPermissionNotInId" resultType="Permission">
+    select id,pid,name,icon,url from t_permission where icon not in (
+        select icon from t_permission where id=#{id}
+    )
+  </select>
 </mapper>

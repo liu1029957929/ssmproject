@@ -88,7 +88,24 @@
         });
 
         showMenu();
-        loadData();
+
+        var setting={};
+        $.ajax({
+            url:"${APP_PATH}/permission/loadData.do",
+            type:"POST",
+            beforeSend:function () {
+                return true;
+            },
+            success:function (result) {
+                if(result.success){
+                    var zNodes=result.data;
+                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                }else{
+                    alert("not ok");
+                }
+            }
+        })
+
     });
 
     $("tbody .btn-success").click(function(){
@@ -98,42 +115,8 @@
         window.location.href = "edit.html";
     });
 
-    var setting={
-        view:{
-            addDiyDom:function (treeId,treeNode) {
-                var icoObj=$("#"+treeNode.tId+"_ico");
-                if(treeNode.icon){/*在java中是不可以用字符串来判断布尔值的，但在js中可以*/
-                    icoObj.removeClass("button ico_docu ico_open").addClass(treeNode.icon).css("background","");
-                }
-            },
-            addHoverDom: function(treeId, treeNode){//设置自定义按钮组，在节点后面悬停显示增删改按钮
-                var aObj = $("#" + treeNode.tId + "_a"); // tId = permissionTree_1, ==> $("#permissionTree_1_a")
-                aObj.attr("href", "#").attr("target","_parent");//取消当前连接事件
-                if (treeNode.editNameFlag || $("#btnGroup"+treeNode.tId).length>0) return;
-                var s = '<span id="btnGroup'+treeNode.tId+'">';
-                if ( treeNode.level == 0 ) {//根节点                                                  href="#"可有可无
-                    s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  href="#" onclick="window.location.href=\'${APP_PATH}/permission/toAdd.htm?id='+treeNode.id+'\'">&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
-                } else if ( treeNode.level == 1 ) {//分支节点
-                    s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  href="#" title="修改权限信息" onclick="window.location.href=\'${APP_PATH}/permission/toEdit.htm?id='+treeNode.id+'\'">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
-                    if (treeNode.children.length == 0) {
-                        s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" href="#" onclick="doDelete('+treeNode.id+','+treeNode.name+')">&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
-                    }
-                    s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" href="#" onclick="window.location.href=\'${APP_PATH}/permission/toAdd.htm?id='+treeNode.id+'\'">&nbsp;&nbsp;<i class="fa fa-fw fa-plus rbg "></i></a>';
-                } else if ( treeNode.level == 2 ) {//叶子节点
-                    s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;"  href="#" title="修改权限信息" onclick="window.location.href=\'${APP_PATH}/permission/toEdit.htm?id='+treeNode.id+'\'">&nbsp;&nbsp;<i class="fa fa-fw fa-edit rbg "></i></a>';
-                    s += '<a class="btn btn-info dropdown-toggle btn-xs" style="margin-left:10px;padding-top:0px;" href="#" onclick="doDelete('+treeNode.id+','+treeNode.name+')">&nbsp;&nbsp;<i class="fa fa-fw fa-times rbg "></i></a>';
-                }
-
-                s += '</span>';
-                aObj.after(s);
-            },
-            removeHoverDom: function(treeId, treeNode){
-                $("#btnGroup"+treeNode.tId).remove();
-            }
-        }
-    };
-
     /*    var setting = {	};
+
   /*var zNodes =[
           { name:"父节点1 - 展开", open:true,
               children: [
@@ -184,50 +167,6 @@
       $(document).ready(function(){
           $.fn.zTree.init($("#treeDemo"), setting, zNodes);
       });*/
-
-    function loadData() {
-        $.ajax({
-            url:"${APP_PATH}/permission/loadData.do",
-            type:"POST",
-            beforeSend:function () {
-                return true;
-            },
-            success:function (result) {
-                if(result.success){
-                    var zNodes=result.data;
-                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-                }else{
-                    alert("not ok");
-                }
-            }
-        })
-    }
-
-    //删除节点
-
-    function doDelete(id,name) {
-        layer.confirm("确定要删除["+name+"]吗",  {icon: 3, title:'提示'}, function(cindex){
-            $.ajax({
-                url:"${APP_PATH}/permission/delete.do",
-                type:"POST",
-                data:{
-                    "id":id
-                },
-                beforeSend:function () {
-                    return true;
-                },
-                success:function (result) {
-                    if(result.success){
-                        loadData();
-                    }else{
-                        alert("not ok");
-                    }
-                }
-            })
-
-            layer.close(cindex);})
-    }
-
 
 
     function showMenu() {

@@ -11,4 +11,14 @@ public interface PermissionService {
     List<Permission> getChildrenPermissionBypid(Integer id);
 
     List<Permission> getAllPermission();
+
+    int insert(Permission permission);
+
+    List<Permission> getPermissionNotInId(Integer id);
+
+    Permission getPermissionByid(Integer id);
+
+    int updataPermission(Permission permission);
+
+    int deletePermission(Integer id);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,83 @@ public class PermissionController {
     @RequestMapping("/index")
     public String index(){
         return "permission/index";
+    }
+
+
+    //跳转到修改页面
+    @RequestMapping("/toEdit")
+    public String toEdit(Integer id,HttpServletRequest request){
+
+        List<Permission> permissionList = permissionService.getPermissionNotInId(id);
+        Permission permission = permissionService.getPermissionByid(id);
+
+        request.setAttribute("permissionList",permissionList);
+        //将permissionList封装到Request中
+        request.setAttribute("permission",permission);
+        return "permission/edit";
+    }
+
+
+    //进行修改操作
+    @ResponseBody
+    @RequestMapping("/edit")
+    public Object edit(Permission permission){
+        AjaxResult result = new AjaxResult();
+        try{
+            int count = permissionService.updataPermission(permission);
+            result.setSuccess(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.setMessage(e.getMessage());
+            result.setSuccess(false);
+        }
+
+        return result;
+    }
+
+    //进行删除操作
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public Object delete(Integer id){
+        AjaxResult result = new AjaxResult();
+        try{
+            int count = permissionService.deletePermission(id);
+            result.setSuccess(count==1);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.setMessage(e.getMessage());
+            result.setSuccess(false);
+        }
+
+        return result;
+    }
+
+
+    //跳转到add页面，获取icon数据，铺页面
+    @RequestMapping("/toAdd")
+    public String toAdd(HttpServletRequest request){
+        List<Permission> permissionList = permissionService.getAllPermission();
+        //将permissionList封装到Request中
+        request.setAttribute("permissionList",permissionList);
+        return "permission/add";
+    }
+
+    //进行添加操作
+    @ResponseBody
+    @RequestMapping("/add")
+    public Object add(Permission permission){
+        AjaxResult result = new AjaxResult();
+        try{
+            int count = permissionService.insert(permission);
+            result.setSuccess(count==1);
+        }catch (Exception e){
+            e.printStackTrace();
+            result.setMessage(e.getMessage());
+            result.setSuccess(false);
+        }
+
+        return result;
     }
 
     //Demo5-关于demo4的优化
@@ -215,9 +293,9 @@ public class PermissionController {
 
         *//*
         {"success":true,"message":null,"page":null,
-        "data":{"id":null,"pid":null,"name":"父节点","icon":null,"url":null,"open":true,
+        "data":[{"id":null,"pid":null,"name":"父节点","icon":null,"url":null,"open":true,
         "children":[{"id":null,"pid":null,"name":"子节点1","icon":null,"url":null,"open":false,"children":null},
-        {"id":null,"pid":null,"name":"子节点2","icon":null,"url":null,"open":false,"children":null}]}}
+        {"id":null,"pid":null,"name":"子节点2","icon":null,"url":null,"open":false,"children":null}]}]}
          *//*
         return result;
     }*/

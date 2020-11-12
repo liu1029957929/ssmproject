@@ -259,7 +259,7 @@
     select roleid from t_user_role where userid=#{id}
   </select>
 
-
+<!--如果有两个参数，就不可以用list或array，会找不到-->
   <insert id="saveUserRoleRelationship">
     <foreach collection="ids" item="roleid" separator=";">
         insert into t_user_role (userid,roleid) values(#{userid},#{roleid})

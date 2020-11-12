@@ -34,4 +34,6 @@ public interface PermissionMapper {
     List<Permission> getChildrenPermissionBypid(Integer id);
 
     List<Permission> getAllPermission();
+
+    List<Permission> getPermissionNotInId(Integer id);
 }
