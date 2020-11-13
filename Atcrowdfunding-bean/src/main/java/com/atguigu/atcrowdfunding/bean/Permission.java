@@ -16,16 +16,16 @@ public class Permission {
 
     private boolean open;
 
-    private boolean check;
+    private boolean checked;
 
     private int level;
 
-    public boolean isCheck() {
-        return check;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setCheck(boolean check) {
-        this.check = check;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public int getLevel() {

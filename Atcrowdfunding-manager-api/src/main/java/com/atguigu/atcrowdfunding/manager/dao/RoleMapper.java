@@ -2,6 +2,7 @@ package com.atguigu.atcrowdfunding.manager.dao;
 
 import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.bean.RoleExample;
+import com.atguigu.atcrowdfunding.util.DataList;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +29,7 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+
+    int insertPermission(@Param("roleid")Integer roleid, @Param("data")DataList data);
 }

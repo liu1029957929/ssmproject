@@ -87,8 +87,8 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from t_role
-    where id = #{id,jdbcType=INTEGER}
+    delete from t_role_permission
+    where roleid = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.atguigu.atcrowdfunding.bean.RoleExample">
     delete from t_role
@@ -161,4 +161,10 @@
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertPermission">
+    <foreach collection="data.ids" item="permissionid" separator=";">
+        insert into t_role_permission(roleid,permissionid) values(#{roleid},#{permissionid})
+    </foreach>
+  </insert>
 </mapper>

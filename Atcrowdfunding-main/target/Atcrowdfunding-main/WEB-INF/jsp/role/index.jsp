@@ -88,7 +88,7 @@
                                 <td><input type="checkbox"></td>
                                 <td>PM - 项目经理</td>
                                 <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
+                                    <button type="button" class="btn btn-success btn-xs" onclick="toAssignPermission()"><i class=" glyphicon glyphicon-check"></i></button>
                                     <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
                                     <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
                                 </td>
@@ -217,9 +217,13 @@
         showMenu();
     });
 
-    $("tbody .btn-success").click(function(){
-        window.location.href = "assignPermission.html";
-    });
+/*    $("tbody .btn-success").click(function(){
+        window.location.href = "assignPermission.htm";
+    });*/
+
+    function toAssignPermission() {
+         window.location.href="${APP_PATH}/role/toAssignPermission.htm?id=1";
+    }
 
     function showMenu() {
         //因为是内部跳转，所以拿到的地址是内部地址。

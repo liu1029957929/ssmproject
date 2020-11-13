@@ -21,4 +21,6 @@ public interface PermissionService {
     int updataPermission(Permission permission);
 
     int deletePermission(Integer id);
+
+    List<Integer> selectPermissionIdsbyRoleid(Integer roleid);
 }

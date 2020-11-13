@@ -226,4 +226,9 @@
         select icon from t_permission where id=#{id}
     )
   </select>
+
+
+  <select id="selectPermissionIdsbyRoleid" resultType="int">
+    select permissionid from t_role_permission where roleid=#{roleid}
+  </select>
 </mapper>
