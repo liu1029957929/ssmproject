@@ -23,4 +23,8 @@ public interface PermissionService {
     int deletePermission(Integer id);
 
     List<Integer> selectPermissionIdsbyRoleid(Integer roleid);
+
+    List<Permission> queryPermissionRoot(Integer id);
+
+    List<Permission> queryAllPermission();
 }

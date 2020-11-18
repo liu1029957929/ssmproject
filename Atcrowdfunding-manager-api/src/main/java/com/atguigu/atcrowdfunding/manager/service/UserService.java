@@ -13,7 +13,7 @@ public interface UserService {
 
     User queryUser(Map<String, Object> map) throws Exception;
 
-    Page queryUserList(Map<String, Object> map);
+    Page  queryUserList(Map<String, Object> map);
 
     int saveUser(User user);
 

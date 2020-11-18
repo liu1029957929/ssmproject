@@ -116,6 +116,7 @@
                 }
             }
         };
+        //要注意异步加载树返回的是root对象，而不是json对象
         $.fn.zTree.init($("#treeDemo"), setting);//异步加载树的数据
 
 

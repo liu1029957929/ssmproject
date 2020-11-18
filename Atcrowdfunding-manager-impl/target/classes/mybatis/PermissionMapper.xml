@@ -231,4 +231,20 @@
   <select id="selectPermissionIdsbyRoleid" resultType="int">
     select permissionid from t_role_permission where roleid=#{roleid}
   </select>
+
+  <select id="getPermissionById" resultType="Permission">
+    select id,pid,name,icon,url
+    from t_permission
+    where id in (
+    select trp.permissionid
+    from t_role_permission trp
+    join t_user_role tur
+    on trp.roleid=tur.roleid
+    where tur.userid=#{id}
+    )
+  </select>
+
+  <select id="queryAllPermission" resultType="Permission">
+    select id,pid,name,icon,url from t_permission
+  </select>
 </mapper>

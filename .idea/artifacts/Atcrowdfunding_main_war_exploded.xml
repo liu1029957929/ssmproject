@@ -14,6 +14,9 @@
           <element id="module-output" name="Atcrowdfunding-main" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="Atcrowdfunding-main-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="Atcrowdfunding-main" />
+          </element>
           <element id="archive" name="Atcrowdfunding-manager-impl-1.0-SNAPSHOT.jar">
             <element id="module-output" name="Atcrowdfunding-manager-impl" />
           </element>

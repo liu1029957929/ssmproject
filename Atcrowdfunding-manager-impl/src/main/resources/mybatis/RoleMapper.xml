@@ -167,4 +167,14 @@
         insert into t_role_permission(roleid,permissionid) values(#{roleid},#{permissionid})
     </foreach>
   </insert>
+
+
+  <select id="queryRoleList" resultType="Role">
+    select id,name from t_role limit #{startIndex},#{pagesize}
+  </select>
+
+
+  <select id="queryAllRole" resultType="int">
+    select count(*) from t_role
+  </select>
 </mapper>

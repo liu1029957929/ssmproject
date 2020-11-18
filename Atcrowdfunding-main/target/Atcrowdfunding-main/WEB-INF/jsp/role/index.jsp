@@ -82,109 +82,14 @@
                                 <th width="100">操作</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="checkbox"></td>
-                                <td>PM - 项目经理</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs" onclick="toAssignPermission()"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="checkbox"></td>
-                                <td>SE - 软件工程师</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><input type="checkbox"></td>
-                                <td>PG - 程序员</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><input type="checkbox"></td>
-                                <td>TL - 组长</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><input type="checkbox"></td>
-                                <td>GL - 组长</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><input type="checkbox"></td>
-                                <td>QA - 品质保证</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><input type="checkbox"></td>
-                                <td>QC - 品质控制</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><input type="checkbox"></td>
-                                <td>SA - 软件架构师</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><input type="checkbox"></td>
-                                <td>CMO / CMS - 配置管理员</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
+                            <tbody id="activitybody">
+
                             </tbody>
                             <tfoot>
                             <tr >
                                 <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
+                                    <ul class="pagination" id="paginationId">
+
                                     </ul>
                                 </td>
                             </tr>
@@ -201,6 +106,7 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
@@ -215,14 +121,89 @@
         });
 
         showMenu();
+        //加载角色列表
+        showPage(1,3);
     });
 
 /*    $("tbody .btn-success").click(function(){
         window.location.href = "assignPermission.htm";
     });*/
 
-    function toAssignPermission() {
-         window.location.href="${APP_PATH}/role/toAssignPermission.htm?id=1";
+    function showPage(pageno,pagesize) {
+        var loadingIndex=-1;
+        $.ajax({
+            type:"POST",
+            url:"${APP_PATH}/role/showPage.do",
+            data:{
+                "pageno":pageno,
+                "pagesize":pagesize
+            },
+            beforeSend:function () {
+                loadingIndex = layer.msg("查询中", {icon: 16});
+                return true;
+            },
+            success:function (result) {
+                layer.close(loadingIndex);
+                if(result.success){
+                    //查询成功，展示页面
+                    var html="";
+                    var page = result.page;
+                    var roleList = page.roleList;
+                    $.each(roleList,function (i,n) {
+                        html +='<tr>';
+                        html +='<td>'+i+'</td>';
+                        html +='<td><input type="checkbox"></td>';
+                        html +='<td>'+n.name+'</td>';
+                        html +='<td>';
+                        html +='<button type="button" class="btn btn-success btn-xs" onclick="toAssignPermission('+n.id+')"><i class=" glyphicon glyphicon-check"></i></button>';
+                        html +='<button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                        html +='<button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                        html +='</td>';
+                        html +='</tr>';
+                    })
+                    $("#activitybody").html(html);
+
+                    //分页导航条
+                    var context="";
+                    if(pageno==1){
+                        context+= '<li class="disabled"><a href="#">上一页</a></li>';
+                    }else{
+                        context+= '<li><a href="#" onclick="showPage('+(pageno-1)+',3)">上一页</a></li>';
+                    }
+
+                    /*$.each(,function(i,n)) 中i是从0开始到n-1*/
+                    for(var i = 1;i<=page.totalno;i++ ) {
+                        context += '<li';
+                            if(pageno==i){
+                                context+=' class="active"';
+                            }
+                        context += '><a href="#" onclick="showPage('+i+')">'+i+'</a></li>';
+                    }
+
+                    if(pageno==page.totalno){
+                        context+= '<li class="disabled"><a href="#">下一页</a></li>';
+                    }else{
+                        context+= '<li><a href="#" onclick="showPage('+(pageno+1)+',3)">下一页</a></li>';
+                    }
+
+                    $("#paginationId").html(context);
+
+                }else{
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+
+            },
+            error:function (result) {
+                layer.msg(result.message, {time:1000, icon:5, shift:6});
+            }
+        })
+    }
+
+
+
+    //分配权限操作
+    function toAssignPermission(id) {
+         window.location.href="${APP_PATH}/role/toAssignPermission.htm?id="+id;
     }
 
     function showMenu() {

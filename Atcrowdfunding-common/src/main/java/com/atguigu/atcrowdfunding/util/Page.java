@@ -1,6 +1,9 @@
 package com.atguigu.atcrowdfunding.util;
 
+import com.atguigu.atcrowdfunding.bean.Advertisement;
+import com.atguigu.atcrowdfunding.bean.Role;
 import com.atguigu.atcrowdfunding.bean.User;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
 
@@ -10,6 +13,24 @@ public class Page {
     private Integer totalno;
     private Integer totalsize;
     private List<User> userlist;
+    private List<Role> roleList;
+    private List<Advertisement> advertList;
+
+    public List<Advertisement> getAdvertList() {
+        return advertList;
+    }
+
+    public void setAdvertList(List<Advertisement> advertList) {
+        this.advertList = advertList;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 
     public List<User> getUserlist() {
         return userlist;
@@ -36,10 +57,6 @@ public class Page {
         return pagesize;
     }
 
-    public void setPageszie(Integer pagesize) {
-        this.pagesize = pagesize;
-    }
-
     public Integer getTotalno() {
         return totalno;
     }
@@ -52,6 +69,15 @@ public class Page {
         return totalsize;
     }
 
+    public Integer getPagesize() {
+        return pagesize;
+    }
+
+    public void setPagesize(Integer pagesize) {
+        this.pagesize = pagesize;
+    }
+
+    //通过这个方法可以获得总的页数
     public void setTotalsize(Integer totalsize) {
         this.totalsize = totalsize;
         this.totalno=(totalsize%pagesize==0)?(totalsize/pagesize):(totalsize/pagesize+1);

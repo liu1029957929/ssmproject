@@ -6,7 +6,10 @@ import com.atguigu.atcrowdfunding.manager.service.PermissionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -56,5 +59,18 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public List<Integer> selectPermissionIdsbyRoleid(Integer roleid) {
         return permissionMapper.selectPermissionIdsbyRoleid(roleid);
+    }
+
+    @Override
+    public List<Permission> queryPermissionRoot(Integer id) {
+
+        //查找该id下的所有permission
+        List<Permission> permissionList = permissionMapper.getPermissionById(id);
+        return permissionList;
+    }
+
+    @Override
+    public List<Permission> queryAllPermission() {
+        return permissionMapper.queryAllPermission();
     }
 }

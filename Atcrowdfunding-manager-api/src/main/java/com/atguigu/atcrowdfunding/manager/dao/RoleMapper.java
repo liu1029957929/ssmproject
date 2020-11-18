@@ -32,4 +32,8 @@ public interface RoleMapper {
 
 
     int insertPermission(@Param("roleid")Integer roleid, @Param("data")DataList data);
+
+    List<Role> queryRoleList(@Param("startIndex")Integer startIndex, @Param("pagesize")Integer pagesize);
+
+    Integer queryAllRole();
 }

@@ -5,9 +5,11 @@ import com.atguigu.atcrowdfunding.manager.service.PermissionService;
 import com.atguigu.atcrowdfunding.manager.service.RoleService;
 import com.atguigu.atcrowdfunding.util.AjaxResult;
 import com.atguigu.atcrowdfunding.util.DataList;
+import com.atguigu.atcrowdfunding.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -27,6 +29,28 @@ public class RoleController {
     public String index(){
         return "role/index";
     }
+
+    //分页查询
+    @ResponseBody
+    @RequestMapping("/showPage")
+    public Object showPage(@RequestParam(value = "pageno",defaultValue = "1") Integer pageno,
+                           @RequestParam(value = "pagesize",defaultValue = "3")Integer pagesize) {
+        AjaxResult result = new AjaxResult();
+        try {
+            Map<String,Object> map = new HashMap<>();
+            map.put("pageno",pageno);
+            map.put("pagesize",pagesize);
+            Page page = roleService.queryRoleList(map);
+            result.setPage(page);
+            result.setSuccess(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setSuccess(false);
+            result.setMessage("查询失败");
+        }
+        return result;
+    }
+
 
     //跳转许可分配页面
     @RequestMapping("/toAssignPermission")

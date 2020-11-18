@@ -223,4 +223,11 @@
       userid = #{userid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAdvertList" resultType="Advertisement">
+        select id,name,iconpath,status,url,userid from t_advertisement limit #{startIndex},#{pagesize}
+  </select>
+  <select id="queryAllAdvert" resultType="int">
+        select count(*) from t_advertisement
+  </select>
 </mapper>

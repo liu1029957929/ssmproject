@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/main.css">
+    <link rel="stylesheet" href="${APP_PATH}/css/pagination.css" />
     <style>
         .tree li {
             list-style-type: none;
@@ -95,6 +96,9 @@
                                     <ul class="pagination" id="paginationId">
 
                                     </ul>
+                                <div id="Pagination" class="pagination">
+
+                                </div>
                                 </td>
                             </tr>
 
@@ -111,6 +115,7 @@
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
 <script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/pagination/jquery.pagination.js"></script>
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
@@ -238,6 +243,16 @@
                 }
 
                 $("#paginationId").html(context);
+
+                /*$("#Pagination").pagination(page.totalsize, {
+                    num_edge_entries: 1, //边缘页数
+                    num_display_entries: 2, //主体页数
+                    callback: showPage,
+                    items_per_page:10, //每页显示1项
+                    current_page:(page.pageno-1),
+                    prev_text: "前一页",
+                    next_text: "后一页"
+                });*/
 
             },
             error:function () {

@@ -38,4 +38,8 @@ public interface PermissionMapper {
     List<Permission> getPermissionNotInId(Integer id);
 
     List<Integer> selectPermissionIdsbyRoleid(Integer roleid);
+
+    List<Permission> getPermissionById(Integer id);
+
+    List<Permission> queryAllPermission();
 }
