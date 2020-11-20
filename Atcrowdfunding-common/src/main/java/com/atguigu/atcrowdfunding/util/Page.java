@@ -15,6 +15,15 @@ public class Page {
     private List<User> userlist;
     private List<Role> roleList;
     private List<Advertisement> advertList;
+    private List data;
+
+    public List getData() {
+        return data;
+    }
+
+    public void setData(List data) {
+        this.data = data;
+    }
 
     public List<Advertisement> getAdvertList() {
         return advertList;

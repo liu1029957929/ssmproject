@@ -1,5 +1,7 @@
 package MyTest;
 
+import com.atguigu.atcrowdfunding.activiti.listener.NoListener;
+import com.atguigu.atcrowdfunding.activiti.listener.YesListener;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
@@ -19,6 +21,44 @@ import java.util.Map;
 public class ActivitiTest {
     ApplicationContext ioc = new ClassPathXmlApplicationContext("spring/spring-*.xml");
     ProcessEngine processEngine = (ProcessEngine) ioc.getBean("processEngine");
+
+    //监听器的使用
+    @Test
+    public void test13(){
+        ProcessDefinition processDefinition = processEngine.getRepositoryService().createProcessDefinitionQuery().latestVersion().singleResult();
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId());
+        System.out.println("processInstance="+processInstance);
+        TaskService taskService =processEngine.getTaskService();
+        TaskQuery query = taskService.createTaskQuery();
+        List<Task> tasks = query.taskAssignee("zhangsan").list();
+        for(Task task:tasks){
+            taskService.setVariable(task.getId(),"flag",true);
+            taskService.setVariable(task.getId(),"yesListener",new YesListener());
+            taskService.setVariable(task.getId(),"noListener",new NoListener());
+            taskService.complete(task.getId());
+        }
+    }
+
+    @Test
+    public void test12(){
+        TaskService taskService = processEngine.getTaskService();
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        List<Task> tasks = taskQuery.taskAssignee("lisi").list();
+        for (Task task:tasks){
+            taskService.complete(task.getId());
+        }
+    }
+
+    //并行网关
+    @Test
+    public void test11(){
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().latestVersion().singleResult();
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        ProcessInstance processInstance = runtimeService.startProcessInstanceById(processDefinition.getId());
+        System.out.println("processInstance="+processInstance);
+    }
 
     //执行排他网关任务
     @Test
@@ -159,7 +199,7 @@ public class ActivitiTest {
     @Test
     public void test02(){
         RepositoryService repositoryService = processEngine.getRepositoryService();
-        repositoryService.createDeployment().addClasspathResource("MyProcess5.bpmn").deploy();
+        repositoryService.createDeployment().addClasspathResource("MyProcess8.bpmn").deploy();
 
     }
 
