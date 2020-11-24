@@ -42,6 +42,9 @@
                         <span class="glyphicon glyphicon-question-sign"></span> 帮助
                     </button>
                 </li>
+                <li>
+                    <a href="#" onclick="getMember()">会员界面</a>
+                </li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="查询">
@@ -87,6 +90,7 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script type="text/javascript">
     $(function () {
         $(".list-group-item").click(function(){
@@ -102,6 +106,28 @@
         showMenu();
     });
 
+    function getMember() {
+        var loadingIndex=-1;
+        $.ajax({
+            type:"POST",
+            url:"${APP_PATH}/member/doLogin.do",
+            beforeSend:function () {
+                loadingIndex = layer.msg("跳转中", {icon: 16});
+                return true;
+            },
+            success:function (result) {
+                layer.close(loadingIndex);
+                if(result.success){
+                   window.location.href="${APP_PATH}/member/member.htm";
+                }else{
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+            },
+            error:function (result) {
+                layer.msg(result.message, {time:1000, icon:5, shift:6});
+            }
+        })
+    }
 
     function showMenu() {
         //因为是内部跳转，所以拿到的地址是内部地址。

@@ -1,9 +1,11 @@
 package com.atguigu.atcrowdfunding.controller;
 
+import com.atguigu.atcrowdfunding.bean.Member;
 import com.atguigu.atcrowdfunding.bean.Permission;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.manager.service.PermissionService;
 import com.atguigu.atcrowdfunding.manager.service.UserService;
+import com.atguigu.atcrowdfunding.potal.service.MemberService;
 import com.atguigu.atcrowdfunding.util.AjaxResult;
 import com.atguigu.atcrowdfunding.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class DispatcherController {
     private UserService userService;
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping("/login")
     public String login(){
@@ -43,20 +47,43 @@ public class DispatcherController {
         return "main";
     }
 
-    @RequestMapping("/dologin")
-    @ResponseBody
-    public Object dologin(String loginacct, String userpswd, String type, HttpSession session){
-        AjaxResult result = new AjaxResult();
+
+    /*@ResponseBody
+    @RequestMapping("/doLoginMember")
+    public Object doLoginMember(String loginacct, String userpswd, String type, HttpSession session){
+        AjaxResult ajaxResult = new AjaxResult();
         try{
             Map<String,Object> map1 = new HashMap<String,Object>();
             map1.put("loginacct",loginacct);
             map1.put("userpswd", MD5Util.getMD5(userpswd));
             map1.put("type",type);
+
+            Member member = memberService.queryMember(map1);
+            session.setAttribute("member",member);
+            ajaxResult.setSuccess(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            ajaxResult.setSuccess(false);
+            ajaxResult.setMessage("登录失败");
+        }
+        return ajaxResult;
+    }*/
+
+
+    @ResponseBody
+    @RequestMapping("/dologin")
+    public Object loginToMain(String loginacct, String userpswd, String type, HttpSession session){
+        AjaxResult ajaxResult = new AjaxResult();
+        try{
+            Map<String,Object> map1 = new HashMap<String,Object>();
+            map1.put("loginacct",loginacct);
+            map1.put("userpswd", MD5Util.getMD5(userpswd));
+            map1.put("type",type);
+
+            //判断是会员登录还是管理员登录
             User user = userService.queryUser(map1);
             //将User保存到session域
             session.setAttribute("user",user);
-            result.setSuccess(true);
-
 
             //通过userid获取roleid然后在获取permissionid来查找根permissionRoot
             Permission permissionRoot = null;
@@ -82,11 +109,12 @@ public class DispatcherController {
             session.setAttribute("url",url);
             session.setAttribute("permissionRoot",permissionRoot);
 
+            ajaxResult.setSuccess(true);
         }catch (Exception e){
             e.printStackTrace();
-            result.setSuccess(false);
-            result.setMessage("登录失败");
+            ajaxResult.setSuccess(false);
+            ajaxResult.setMessage("登录失败");
         }
-        return result;
+        return ajaxResult;
     }
 }

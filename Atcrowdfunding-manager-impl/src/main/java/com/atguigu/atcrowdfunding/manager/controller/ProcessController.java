@@ -48,7 +48,7 @@ public class ProcessController {
                 .createProcessDefinitionQuery().processDefinitionId(id).singleResult();
         String deploymentId = processDefinition.getDeploymentId();
         String imgName = processDefinition.getDiagramResourceName();
-        InputStream in = processEngine.getRepositoryService().getResourceAsStream(deploymentId,imgName);
+        InputStream in = processEngine.getRepositoryService().getResourceAsStream(deploymentId,imgName) ;
         OutputStream out = response.getOutputStream();
         IOUtils.copy(in,out);
     }

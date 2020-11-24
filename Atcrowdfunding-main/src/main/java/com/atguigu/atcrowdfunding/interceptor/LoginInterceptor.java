@@ -1,5 +1,6 @@
 package com.atguigu.atcrowdfunding.interceptor;
 
+import com.atguigu.atcrowdfunding.bean.Member;
 import com.atguigu.atcrowdfunding.bean.User;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -20,6 +21,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         uri.add("/dologin.do");
         uri.add("/logout.htm");
         uri.add("/index.htm");
+        uri.add("/member/doLogin.do");
 
         String servletPath = request.getServletPath();
         if(uri.contains(servletPath)){
@@ -27,13 +29,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         }else{
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("user");
+            Member member = (Member) session.getAttribute("member");
 
-            if(user!=null){
+            if(user!=null ||member!=null){
                 return true;
             }else{
                 response.sendRedirect(request.getContextPath()+"/login.htm");
                 return false;
             }
         }
+
     }
 }
