@@ -7,7 +7,7 @@ import java.util.Map;
 public interface MemberService {
     Member queryMember(Map<String, Object> map);
 
-    int doApplicationForAuth(Member member);
+    int updateAccttype(Member member);
 
     int updateBasicInfo(Member mem);
 }

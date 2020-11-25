@@ -124,7 +124,7 @@
             var loadingIndex = -1;
             $.ajax({
                 type:"POST",
-                url:"${APP_PATH}/member/doApplicationForAuth.do",
+                url:"${APP_PATH}/member/updateAccttype.do",
                 data:{
                     "acctype":acctype
                 },

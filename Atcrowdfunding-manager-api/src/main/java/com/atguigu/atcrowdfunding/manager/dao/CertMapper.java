@@ -28,4 +28,8 @@ public interface CertMapper {
     int updateByPrimaryKeySelective(Cert record);
 
     int updateByPrimaryKey(Cert record);
+
+    List<Cert> queryAllCert();
+
+    List<Cert> queryCertByid(List<Integer> certid);
 }

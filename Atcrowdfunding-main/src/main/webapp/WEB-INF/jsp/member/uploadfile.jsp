@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -52,27 +53,23 @@
     </div>
 
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#"><span class="badge">1</span> 基本信息</a></li>
-        <li role="presentation"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
+        <li role="presentation" ><a href="#"><span class="badge">1</span> 基本信息</a></li>
+        <li role="presentation" class="active"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
         <li role="presentation"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
         <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
     </ul>
 
     <form role="form" style="margin-top:20px;">
         <div class="form-group">
-            <label for="realname">真实名称</label>
-            <input type="text" class="form-control" id="realname" placeholder="请输入真实名称">
+            <c:forEach items="${cert}" var="c">
+                <label for="exampleInputEmail1">${c.name}</label>
+                <input type="file" class="form-control" >
+                <br>
+                <img src="img/pic.jpg" style="display: none">
+            </c:forEach>
         </div>
-        <div class="form-group">
-            <label for="cardnum">身份证号码</label>
-            <input type="text" class="form-control" id="cardnum" placeholder="请输入身份证号码">
-        </div>
-        <div class="form-group">
-            <label for="tel">电话号码</label>
-            <input type="text" class="form-control" id="tel" placeholder="请输入电话号码">
-        </div>
-        <button type="button" onclick="window.location.href='accttype.html'" class="btn btn-default">上一步</button>
-        <button type="button" id="nextBtn"  class="btn btn-success">下一步</button>
+        <button type="button" onclick="window.location.href='apply.html'" class="btn btn-default">上一步</button>
+        <button type="button" onclick="window.location.href='apply-2.html'"  class="btn btn-success">下一步</button>
     </form>
     <hr>
 </div> <!-- /container -->
@@ -94,43 +91,30 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
-<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     });
 
-    $(function () {
-        $("#nextBtn").click(function () {
-            var loadingIndex=-1;
-            $.ajax({
-                type:"POST",
-                url:"${APP_PATH}/member/updateBasicInfo.do",
-                data:{
-                    "realname":$("#realname").val(),
-                    "cardnum":$("#cardnum").val(),
-                    "tel":$("#tel").val()
-                },
-                beforeSend:function () {
-                    loadingIndex = layer.msg("数据更新中", {icon: 16});
-                    return true;
-                },
-                success:function (result) {
-                    layer.close(loadingIndex);
-                    if(result.success){
-                        window.location.href="${APP_PATH}/member/fileUpload.htm";
-                    }else{
-                        layer.msg(result.message, {time:1000, icon:5, shift:6});
-                    }
-                },
-                error:function (result) {
-                    layer.msg(result.message, {time:1000, icon:5, shift:6});
-                }
-            })
-        })
-    })
+    //预览功能
+    $(":file").change(function(event){
+        var files = event.target.files;
+        var file;
 
+        if (files && files.length > 0) {
+            file = files[0];
+
+            var URL = window.URL || window.webkitURL;
+            // 本地图片路径
+            var imgURL = URL.createObjectURL(file);
+
+            var imgObj = $(this).next().next(); //获取同辈紧邻的下一个元素
+            //console.log(imgObj);
+            imgObj.attr("src", imgURL);
+            imgObj.show();
+        }
+    });
 
 </script>
 </body>

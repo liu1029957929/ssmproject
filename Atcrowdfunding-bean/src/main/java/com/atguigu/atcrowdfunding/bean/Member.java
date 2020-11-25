@@ -20,6 +20,7 @@ public class Member {
     private String cardnum;
 
     private String accttype;
+
     private String tel;
 
     public String getTel() {

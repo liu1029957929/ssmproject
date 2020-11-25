@@ -3,19 +3,12 @@ package com.atguigu.atcrowdfunding.listener;
 import com.atguigu.atcrowdfunding.bean.Member;
 import com.atguigu.atcrowdfunding.bean.Permission;
 import com.atguigu.atcrowdfunding.manager.service.PermissionService;
-import com.atguigu.atcrowdfunding.potal.service.MemberService;
-import com.atguigu.atcrowdfunding.util.MD5Util;
-import org.activiti.engine.ProcessEngine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSession;
 import java.util.*;
 
 public class StartSystemListener implements ServletContextListener {

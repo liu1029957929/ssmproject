@@ -161,4 +161,15 @@
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAllCert" resultMap="BaseResultMap">
+    select id,name from t_cert
+  </select>
+
+  <select id="queryCertByid" resultMap="BaseResultMap">
+    select * from t_cert where id in
+    <foreach collection="list" item="certid" separator="," open="(" close=")">
+      #{certid}
+    </foreach>
+  </select>
 </mapper>

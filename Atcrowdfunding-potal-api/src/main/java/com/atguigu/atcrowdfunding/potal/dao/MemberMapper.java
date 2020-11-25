@@ -32,7 +32,7 @@ public interface MemberMapper {
 
     Member queryMember(Map<String, Object> map);
 
-    int doApplicationForAuth(Member member);
-
     int updateBasicInfo(Member member);
+
+    int updateAccttype(Member member);
 }

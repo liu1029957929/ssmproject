@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int doApplicationForAuth(Member member) {
-        return memberMapper.doApplicationForAuth(member);
+    public int updateAccttype(Member member) {
+        return memberMapper.updateAccttype(member);
     }
 
     @Override

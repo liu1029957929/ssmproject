@@ -178,4 +178,21 @@
       certid = #{certid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryAccountTypeCert" resultMap="BaseResultMap">
+    select accttype,certid from t_account_type_cert
+  </select>
+
+
+  <insert id="insertAccountTypeCert">
+    insert into t_account_type_cert (accttype,certid) values (#{accttype},#{certid})
+  </insert>
+
+  <delete id="deleteAccountTypeCert">
+    delete  from t_account_type_cert where accttype=#{accttype} and certid=#{certid}
+  </delete>
+
+  <select id="queryAccountTypeCertByAccttype" resultMap="BaseResultMap">
+    select * from t_account_type_cert where accttype=#{accttype}
+  </select>
 </mapper>

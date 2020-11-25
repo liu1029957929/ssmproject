@@ -294,7 +294,7 @@
     select id,loginacct,userpswd,username,email,authstatus,usertype,realname,cardnum,accttype
     from t_member where loginacct=#{loginacct} and userpswd=#{userpswd}
   </select>
-  <update id="doApplicationForAuth">
+  <update id="updateAccttype">
     update t_member
     set  usertype = #{usertype,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
