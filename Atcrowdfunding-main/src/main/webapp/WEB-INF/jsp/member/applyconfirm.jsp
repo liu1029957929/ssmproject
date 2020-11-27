@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -54,23 +53,18 @@
 
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" ><a href="#"><span class="badge">1</span> 基本信息</a></li>
-        <li role="presentation" class="active"><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
-        <li role="presentation"><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
-        <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
+        <li role="presentation" ><a href="#"><span class="badge">2</span> 资质文件上传</a></li>
+        <li role="presentation" ><a href="#"><span class="badge">3</span> 邮箱确认</a></li>
+        <li role="presentation" class="active"><a href="#"><span class="badge">4</span> 申请确认</a></li>
     </ul>
 
-    <form role="form" style="margin-top:20px;" method="post" enctype="multipart/form-data" id="addForm">
+    <form role="form" style="margin-top:20px;">
         <div class="form-group">
-            <c:forEach items="${cert}" var="c" varStatus="status">
-                <label for="exampleInputEmail1">${c.name}</label>
-                <input type="hidden" name="certImgs[${status.index}].certid">
-                <input type="file" name="certImgs[${status.index}].file" class="form-control" >
-                <br>
-                <img src="img/pic.jpg" style="display: none">
-            </c:forEach>
+            <label for="authcode">验证码</label>
+            <input type="text" class="form-control" id="authcode" placeholder="请输入你邮箱中接收到的验证码">
         </div>
-        <button type="button" onclick="window.location.href='apply.html'" class="btn btn-default">上一步</button>
-        <button type="button" onclick="upLoadCertFile()"  class="btn btn-success">下一步</button>
+        <button type="button" onclick="javascript:;" class="btn btn-primary">重新发送验证码</button>
+        <button type="button" id="finshBtn"  class="btn btn-success">申请完成</button>
     </form>
     <hr>
 </div> <!-- /container -->
@@ -93,54 +87,37 @@
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
 <script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
-<script type="text/javascript" src="${APP_PATH}/jquery/jquery-form/jquery.form.js"></script>
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     });
 
-    //预览功能
-    $(":file").change(function(event){
-        var files = event.target.files;
-        var file;
-
-        if (files && files.length > 0) {
-            file = files[0];
-
-            var URL = window.URL || window.webkitURL;
-            // 本地图片路径
-            var imgURL = URL.createObjectURL(file);
-
-            var imgObj = $(this).next().next(); //获取同辈紧邻的下一个元素
-            //console.log(imgObj);
-            imgObj.attr("src", imgURL);
-            imgObj.show();
-        }
-    });
-
-    function upLoadCertFile() {
+    $("#finshBtn").click(function () {
         var loadingIndex=-1;
-        var options = {
-            url: "${APP_PATH}/member/doUploadfile.do",
-            beforeSubmit: function(){
-                loadingIndex=layer.msg("数据提交中", {icon: 16});
+        $.ajax({
+            type:"POST",
+            url:"${APP_PATH}/member/finishApply.do",
+            data:{
+                "authcode":$("#authcode").val()
+            },
+            beforeSend:function () {
+                loadingIndex = layer.msg("加载中", {icon: 16});
                 return true;
             },
-            success:function(result){
+            success:function (result) {
                 layer.close(loadingIndex);
                 if(result.success){
                     window.location.href="${APP_PATH}/member/apply.htm";
                 }else{
                     layer.msg(result.message, {time:1000, icon:5, shift:6});
                 }
+            },
+            error:function (result) {
+                layer.msg(result.message, {time:1000, icon:5, shift:6});
             }
-        };
-        //提交异步请求
-        $("#addForm").ajaxSubmit(options);
-        return;
-    }
-
+        })
+    })
 </script>
 </body>
 </html>

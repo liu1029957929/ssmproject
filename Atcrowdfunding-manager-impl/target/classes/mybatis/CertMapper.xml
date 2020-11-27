@@ -172,4 +172,8 @@
       #{certid}
     </foreach>
   </select>
+
+  <insert id="insertMemberCert">
+    insert into t_member_cert(memberid,certid,iconpath) values (#{memberid},#{certid},#{iconpath})
+  </insert>
 </mapper>

@@ -99,4 +99,8 @@
   <update id="updateTicket">
     update t_ticket set pstep=#{pstep} where id=${id}
   </update>
+
+  <update id="updateTicket2">
+    update t_ticket set piid=#{piid},authcode=#{authcode},pstep=#{pstep} where id=${id}
+  </update>
 </mapper>

@@ -9,4 +9,6 @@ public interface TicketService {
     void insertTicket(Ticket ticket);
 
     void updateTicket(Ticket ticket);
+
+    void updateTicket2(Ticket ticket);
 }

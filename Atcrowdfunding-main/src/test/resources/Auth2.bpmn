@@ -5,7 +5,7 @@
     <serviceTask activiti:exclusive="true" activiti:type="mail" id="_3" name="发送验证码">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string>${toEmail}</activiti:string>
+          <activiti:expression>${toEmail}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string>admin@atguigu.com</activiti:string>
@@ -17,7 +17,7 @@
           <activiti:string>UTF-8</activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:string>实名审核验证码:${authcode}</activiti:string>
+          <activiti:expression>实名审核验证码:${authcode}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

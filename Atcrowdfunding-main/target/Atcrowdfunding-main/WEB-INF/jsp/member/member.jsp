@@ -91,7 +91,7 @@
                                 <c:when test="${member.authstatus eq '0'}">
                                     <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='${APP_PATH}/member/apply.htm'">未实名认证</span>
                                 </c:when>
-                                <c:when test="${loginMember.authstatus eq '1'}">
+                                <c:when test="${member.authstatus eq '1'}">
                                     <span class="label label-warning" style="cursor:pointer;">实名认证申请中</span>
                                 </c:when>
                                  <c:otherwise>

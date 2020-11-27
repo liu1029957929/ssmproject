@@ -31,4 +31,19 @@ public class MemberServiceImpl implements MemberService {
     public int updateBasicInfo(Member member) {
         return memberMapper.updateBasicInfo(member) ;
     }
+
+    @Override
+    public void updateEmail(Member member) {
+        memberMapper.updateEmail(member);
+    }
+
+    @Override
+    public void updateAuthstatus(Member member) {
+        memberMapper.updateAuthstatus(member);
+    }
+
+    @Override
+    public Member queryMemberById(String processInstanceId) {
+        return memberMapper.queryMemberById(processInstanceId);
+    }
 }

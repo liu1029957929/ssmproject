@@ -14,4 +14,6 @@ public interface TicketMapper {
     void insertTicket(Ticket ticket);
 
     void updateTicket(Ticket ticket);
+
+    void updateTicket2(Ticket ticket);
 }

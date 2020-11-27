@@ -307,4 +307,27 @@
        tel = #{tel,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateEmail">
+    update t_member
+    set email = #{email}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateAuthstatus">
+    update t_member
+    set authstatus = #{authstatus}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="queryMemberById" resultMap="BaseResultMap">
+      select
+      tm.*
+      from t_member tm
+      join t_ticket tt
+      on tm.id=tt.memberid
+      where tt.piid=#{processInstanceId}
+
+  </select>
 </mapper>

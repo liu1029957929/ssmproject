@@ -10,4 +10,10 @@ public interface MemberService {
     int updateAccttype(Member member);
 
     int updateBasicInfo(Member mem);
+
+    void updateEmail(Member member);
+
+    void updateAuthstatus(Member member);
+
+    Member queryMemberById(String processInstanceId);
 }

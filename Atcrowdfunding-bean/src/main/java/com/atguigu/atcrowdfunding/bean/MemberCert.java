@@ -1,5 +1,7 @@
 package com.atguigu.atcrowdfunding.bean;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberCert {
     private Integer id;
 
@@ -8,6 +10,16 @@ public class MemberCert {
     private Integer certid;
 
     private String iconpath;
+
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public Integer getId() {
         return id;

@@ -2,6 +2,7 @@ package com.atguigu.atcrowdfunding.manager.service;
 
 import com.atguigu.atcrowdfunding.bean.AccountTypeCert;
 import com.atguigu.atcrowdfunding.bean.Cert;
+import com.atguigu.atcrowdfunding.bean.MemberCert;
 import com.sun.tracing.dtrace.ProviderAttributes;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,6 @@ public interface CerttypeService {
     List<AccountTypeCert> queryAccountTypeCertByAccttype(String accttype);
 
     List<Cert> queryCertByid(List<Integer> certid);
+
+    void insertMemberCert(List<MemberCert> memberCertList);
 }

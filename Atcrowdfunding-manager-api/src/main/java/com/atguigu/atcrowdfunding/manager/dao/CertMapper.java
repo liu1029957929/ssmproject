@@ -2,6 +2,7 @@ package com.atguigu.atcrowdfunding.manager.dao;
 
 import com.atguigu.atcrowdfunding.bean.Cert;
 import com.atguigu.atcrowdfunding.bean.CertExample;
+import com.atguigu.atcrowdfunding.bean.MemberCert;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface CertMapper {
     List<Cert> queryAllCert();
 
     List<Cert> queryCertByid(List<Integer> certid);
+
+    void insertMemberCert(MemberCert memberCert);
 }

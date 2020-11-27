@@ -10,7 +10,6 @@ import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -200,7 +199,7 @@ public class ActivitiTest {
     @Test
     public void test02(){
         RepositoryService repositoryService = processEngine.getRepositoryService();
-        repositoryService.createDeployment().addClasspathResource("MyProcess8.bpmn").deploy();
+        repositoryService.createDeployment().addClasspathResource("Auth2.bpmn").deploy();
 
     }
 

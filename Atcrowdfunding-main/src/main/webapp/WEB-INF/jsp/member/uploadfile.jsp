@@ -59,17 +59,18 @@
         <li role="presentation"><a href="#"><span class="badge">4</span> 申请确认</a></li>
     </ul>
 
-    <form role="form" style="margin-top:20px;">
+    <form role="form" style="margin-top:20px;" method="post" enctype="multipart/form-data" id="addForm">
         <div class="form-group">
-            <c:forEach items="${cert}" var="c">
+            <c:forEach items="${cert}" var="c" varStatus="status">
                 <label for="exampleInputEmail1">${c.name}</label>
-                <input type="file" class="form-control" >
+                <input type="hidden" name="certImgs[${status.index}].certid">
+                <input type="file" name="certImgs[${status.index}].file" class="form-control" >
                 <br>
                 <img src="img/pic.jpg" style="display: none">
             </c:forEach>
         </div>
         <button type="button" onclick="window.location.href='apply.html'" class="btn btn-default">上一步</button>
-        <button type="button" onclick="window.location.href='apply-2.html'"  class="btn btn-success">下一步</button>
+        <button type="button" onclick="upLoadCertFile()"  class="btn btn-success">下一步</button>
     </form>
     <hr>
 </div> <!-- /container -->
@@ -91,6 +92,8 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/layer/layer.js"></script>
+<script type="text/javascript" src="${APP_PATH}/jquery/jquery-form/jquery.form.js"></script>
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault()
@@ -115,6 +118,28 @@
             imgObj.show();
         }
     });
+
+    function upLoadCertFile() {
+        var loadingIndex=-1;
+        var options = {
+            url: "${APP_PATH}/member/doUploadfile.do",
+            beforeSubmit: function(){
+                loadingIndex=layer.msg("数据提交中", {icon: 16});
+                return true;
+            },
+            success:function(result){
+                layer.close(loadingIndex);
+                if(result.success){
+                    window.location.href="${APP_PATH}/member/apply.htm";
+                }else{
+                    layer.msg(result.message, {time:1000, icon:5, shift:6});
+                }
+            }
+        };
+        //提交异步请求
+        $("#addForm").ajaxSubmit(options);
+        return;
+    }
 
 </script>
 </body>

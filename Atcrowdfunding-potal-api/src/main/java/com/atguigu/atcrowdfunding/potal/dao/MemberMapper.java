@@ -35,4 +35,10 @@ public interface MemberMapper {
     int updateBasicInfo(Member member);
 
     int updateAccttype(Member member);
+
+    void updateEmail(Member member);
+
+    void updateAuthstatus(Member member);
+
+    Member queryMemberById(String processInstanceId);
 }

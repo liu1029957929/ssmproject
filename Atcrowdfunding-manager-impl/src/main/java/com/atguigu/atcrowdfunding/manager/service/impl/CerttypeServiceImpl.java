@@ -2,6 +2,7 @@ package com.atguigu.atcrowdfunding.manager.service.impl;
 
 import com.atguigu.atcrowdfunding.bean.AccountTypeCert;
 import com.atguigu.atcrowdfunding.bean.Cert;
+import com.atguigu.atcrowdfunding.bean.MemberCert;
 import com.atguigu.atcrowdfunding.manager.dao.AccountTypeCertMapper;
 import com.atguigu.atcrowdfunding.manager.dao.CertMapper;
 import com.atguigu.atcrowdfunding.manager.service.CerttypeService;
@@ -45,5 +46,12 @@ public class CerttypeServiceImpl implements CerttypeService {
     @Override
     public List<Cert> queryCertByid(List<Integer> certid) {
         return certMapper.queryCertByid(certid);
+    }
+
+    @Override
+    public void insertMemberCert(List<MemberCert> memberCertList) {
+        for(MemberCert memberCert:memberCertList){
+            certMapper.insertMemberCert(memberCert);
+        }
     }
 }
