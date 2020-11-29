@@ -330,4 +330,23 @@
       where tt.piid=#{processInstanceId}
 
   </select>
+
+  <select id="queryMemberCert" resultType="map">
+        select
+        tmc.iconpath,tc.name
+        from t_member_cert tmc
+        join t_cert tc
+        on tmc.certid=tc.id
+        where memberid=#{memberid}
+
+  </select>
+
+
+  <select id="queryMemberById2" resultMap="BaseResultMap">
+        select
+        *
+        from t_member
+        where id=#{memberid}
+
+  </select>
 </mapper>

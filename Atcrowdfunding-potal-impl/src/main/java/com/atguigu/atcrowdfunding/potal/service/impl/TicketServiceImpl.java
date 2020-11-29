@@ -33,4 +33,9 @@ public class TicketServiceImpl implements TicketService {
     public void updateTicket2(Ticket ticket) {
         ticketMapper.updateTicket2(ticket);
     }
+
+    @Override
+    public void updateTicketByMemberId(Integer id) {
+        ticketMapper.updateTicketByMemberId(id);
+    }
 }

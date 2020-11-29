@@ -41,4 +41,8 @@ public interface MemberMapper {
     void updateAuthstatus(Member member);
 
     Member queryMemberById(String processInstanceId);
+
+    List<Map<String, Object>> queryMemberCert(String memberid);
+
+    Member queryMemberById2(String memberid);
 }

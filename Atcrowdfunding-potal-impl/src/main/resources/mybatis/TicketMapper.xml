@@ -103,4 +103,9 @@
   <update id="updateTicket2">
     update t_ticket set piid=#{piid},authcode=#{authcode},pstep=#{pstep} where id=${id}
   </update>
+
+
+  <update id="updateTicketByMemberId">
+    update t_ticket set status='1' where memberid=#{memberid} and status='0'
+  </update>
 </mapper>

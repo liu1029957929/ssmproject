@@ -11,4 +11,6 @@ public interface TicketService {
     void updateTicket(Ticket ticket);
 
     void updateTicket2(Ticket ticket);
+
+    void updateTicketByMemberId(Integer id);
 }

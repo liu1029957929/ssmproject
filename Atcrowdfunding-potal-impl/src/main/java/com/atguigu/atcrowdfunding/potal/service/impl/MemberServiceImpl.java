@@ -6,6 +6,7 @@ import com.atguigu.atcrowdfunding.potal.service.MemberService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -45,5 +46,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member queryMemberById(String processInstanceId) {
         return memberMapper.queryMemberById(processInstanceId);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryMemberCert(String memberid) {
+        return memberMapper.queryMemberCert(memberid);
+    }
+
+    @Override
+    public Member queryMemberById2(String memberid) {
+        return memberMapper.queryMemberById2(memberid);
     }
 }
